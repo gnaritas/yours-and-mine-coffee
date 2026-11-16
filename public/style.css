@@ -75,7 +75,7 @@ a:hover{color:var(--brick3)}
 .pagehero{background:linear-gradient(150deg,#12251a,var(--pine2));color:var(--cream);padding:54px 0 58px;position:relative;overflow:hidden}
 .pagehero::after{content:"";position:absolute;inset:0;background:radial-gradient(480px 300px at 88% 0%,rgba(232,192,122,.13),transparent 70%),radial-gradient(420px 260px at 6% 100%,rgba(193,68,78,.22),transparent 70%);pointer-events:none}
 .pagehero .wrap{position:relative;z-index:1}
-.pagehero h1{color:#fff;max-width:22ch}
+.pagehero h1{color:#fff;max-width:34ch}
 .pagehero .lede{max-width:58ch;color:#eee0cb}
 .pagehero .cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:22px}
 
