@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /thanks
+
+Sitemap: https://yours-and-mine-coffee-demo.up.railway.app/sitemap.xml

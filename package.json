@@ -1,0 +1,8 @@
+{
+  "name": "yours-and-mine-coffee",
+  "version": "1.0.0",
+  "description": "Yours and Mine Coffee — Latina-inspired coffee shop at 4112 Pennsylvania Ave, Kansas City MO (static site + node form relay)",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
