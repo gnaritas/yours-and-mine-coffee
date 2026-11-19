@@ -15,7 +15,7 @@ const MAIL_READY = !!MAIL.key;
 const MIME = {
   ".html": "text/html; charset=utf-8", ".css": "text/css", ".js": "text/javascript",
   ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg",
-  ".svg": "image/svg+xml", ".ico": "image/x-icon", ".xml": "application/xml", ".txt": "text/plain",
+  ".svg": "image/svg+xml", ".ico": "image/x-icon", ".gif": "image/gif", ".xml": "application/xml", ".txt": "text/plain",
 };
 
 function readBody(req, cb) {
@@ -56,6 +56,18 @@ function serveStatic(p, res) {
 http.createServer((req, res) => {
   let p = decodeURIComponent(req.url.split("?")[0]).replace(/\/$/, "");
   if (p === "") p = "/";
+  if (p === "/open" && (req.method === "GET" || req.method === "HEAD")) {
+    const q = new URLSearchParams(req.url.split("?")[1] || "");
+    console.log("OPEN " + SITE + " " + JSON.stringify({ t: (q.get("t") || "").slice(0, 120), ua: (req.headers["user-agent"] || "").slice(0, 60), ts: new Date().toISOString() }));
+    return fs.readFile(path.join(root, "pixel.gif"), (e, d) => {
+      res.writeHead(e ? 404 : 200, { "content-type": "image/gif", "cache-control": "no-store" });
+      res.end(e ? "" : d);
+    });
+  }
+  if (req.url.indexOf("utm_") !== -1) {
+    const q = new URLSearchParams(req.url.split("?")[1] || "");
+    console.log("CLICK " + SITE + " " + JSON.stringify({ c: (q.get("utm_content") || "").slice(0, 120), path: p.slice(0, 100), ua: (req.headers["user-agent"] || "").slice(0, 60), ts: new Date().toISOString() }));
+  }
   if (p === "/healthz") { res.writeHead(200, { "content-type": "text/plain" }); return res.end("ok"); }
   if (req.method === "POST" && p === "/contact") {
     if ((req.headers["content-type"] || "").split(";")[0] !== "application/x-www-form-urlencoded") {
